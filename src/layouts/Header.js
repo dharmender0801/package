@@ -16,7 +16,9 @@ import {
 import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
 import user1 from "../assets/images/users/user1.jpg";
 import { IoHome } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const menus = [
@@ -27,34 +29,98 @@ const Header = () => {
         {
           operatorName: "Safaricom Kenya",
           route: "safaricom-kenya",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:"http://lp.quiz2play.com/kenya/subscribe/masked?cpId={cpid}&kpId=<kpid>&pubId=1"
         },
         {
           operatorName: "Mtn Nigeria",
           route: "mtn-nigeria",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
         {
           operatorName: "9Mobile Nigeria",
           route: "9mobile-nigeria",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
         {
           operatorName: "Zain Iraq",
           route: "zain-iraq",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
         {
           operatorName: "Zain KSA",
           route: "zain-ksa",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
         {
           operatorName: "Mobily KSA",
           route: "mobily-ksa",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
         {
           operatorName: "Stc KSA",
           route: "stc-ksa",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
         {
           operatorName: "Ais Thailand",
           route: "ais-thailand",
+          serverKey: "1234",
+          insertQuery:
+            "INSERT INTO `quiz2play_vendor_detail` (cp_id,callback_url,cut,counter,callback_limit,vendor_name,operator_name,operator_id,service_name,lp_url,payout,STATUS) VALUE ('{cpid}','{callbackurl}','{cut}','{counter}','{limit}','{vendorname}','Kenya','1','quiz2play','{lpUrl}','0','1')",
+          getAdvIdQuery:
+            "SELECT * FROM quiz2play_vendor_detail ORDER BY  cp_id DESC LIMIT 1",
+          updateQuery: "",
+          getQuery: "",
+          lpUrl:""
         },
       ],
     },
@@ -65,6 +131,10 @@ const Header = () => {
         {
           operatorName: "Safaricom Kenya",
           route: "safaricom-kenya",
+          serverKey: "1234",
+          insertQuery: "",
+          updateQuery: "",
+          getQuery: "",
         },
       ],
     },
@@ -74,6 +144,10 @@ const Header = () => {
         {
           operatorName: "Safaricom Kenya",
           route: "safaricom-kenya",
+          serverKey: "1234",
+          insertQuery: "",
+          updateQuery: "",
+          getQuery: "",
         },
       ],
     },
@@ -83,6 +157,10 @@ const Header = () => {
         {
           operatorName: "Safaricom Kenya",
           route: "safaricom-kenya",
+          serverKey: "1234",
+          insertQuery: "",
+          updateQuery: "",
+          getQuery: "",
         },
       ],
     },
@@ -96,6 +174,10 @@ const Header = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <Navbar color="success" dark expand="md">
       <div className="d-flex align-items-center">
@@ -166,7 +248,7 @@ const Header = () => {
             <DropdownItem divider />
             <DropdownItem>My Balance</DropdownItem>
             <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
+            <DropdownItem onClick={logout}>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>

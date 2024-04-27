@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom/dist";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,78 +14,66 @@ import {
 import ProjectTables from "../../components/dashboard/ProjectTable";
 import { Suppres } from "./Supress";
 import { Vendor } from "./VendorAdd";
-const tableData = [
-  {
-    name: "Hanna Gover",
-    postbackUrl: "hgover@gmail.com",
-    payout: "Flexy React",
-    capping: "pending",
-    callbackLimit: "35",
-    status: "95K",
-    Share: "95K",
-  },
-  {
-    name: "Hanna Gover",
-    postbackUrl: "hgover@gmail.com",
-    payout: "Flexy React",
-    capping: "pending",
-    callbackLimit: "35",
-    status: "95K",
-    Share: "95K",
-  },
-  {
-    name: "Hanna Gover",
-    postbackUrl: "hgover@gmail.com",
-    payout: "Flexy React",
-    capping: "pending",
-    callbackLimit: "35",
-    status: "95K",
-    Share: "95K",
-  },
-  {
-    name: "Hanna Gover",
-    postbackUrl: "hgover@gmail.com",
-    payout: "Flexy React",
-    capping: "pending",
-    callbackLimit: "35",
-    status: "95K",
-    Share: "95K",
-  },
-  {
-    name: "Hanna Gover",
-    postbackUrl: "hgover@gmail.com",
-    payout: "Flexy React",
-    capping: "pending",
-    callbackLimit: "35",
-    status: "95K",
-    Share: "95K",
-  },
-];
 
 const tableHeader = [
+  { columnName: "AdvId" },
   { columnName: "Vendor Name" },
   { columnName: "Postback Url" },
   { columnName: "Payout" },
-  { columnName: "Daily Capping" },
   { columnName: "Callback Limit" },
   { columnName: "Active Status" },
   { columnName: "Share" },
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
   const [buttonType, setButtonType] = useState();
   const location = useLocation();
   const { data, serviceDatas } = location.state;
-  // useEffect(() => {
-  //   swal("Vendor Added !", "vendor Added Successfully", "success");
-  // }, [data]);
+  const [tableContent, setTableContent] = useState([
+    {
+      advId: "",
+      name: "",
+      postbackUrl: "",
+      postbackUrl: "",
+      payout: "",
+      capping: "",
+      callbackLimit: "",
+      status: "",
+      Share: "",
+    },
+  ]);
+  useEffect(() => {
+    getVendorDetail();
+  }, [data]);
+
+  const getVendorDetail = async () => {
+    axios
+      .post(
+        "http://localhost:8080/api/content/getVendors",
+        {
+          serverKey: "1234",
+        },
+        {
+          headers: {
+            Accept: "*/*",
+            Authorization: localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setTableContent(response.data);
+      })
+      .catch((error) => {
+        navigate("/login");
+        console.error("There was a problem with the request:", error);
+      });
+  };
 
   return (
     <Row>
       <Col>
-        {/* --------------------------------------------------------------------------------*/}
-        {/* Card-1*/}
-        {/* --------------------------------------------------------------------------------*/}
         <Card>
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
             <Breadcrumb>
@@ -139,11 +129,11 @@ const Home = () => {
               </Button>
             </div>
           </CardTitle>
-          {buttonType === "add-vendor" && <Vendor />}
+          {buttonType === "add-vendor" && <Vendor vendorData={data.subItem} />}
           {buttonType === "conversion" || buttonType === "vendor-detail" ? (
-            <ProjectTables tableData={tableData} tableHeader={tableHeader} />
+            <ProjectTables tableData={tableContent} tableHeader={tableHeader} />
           ) : null}
-          {buttonType === "supress-logic" && <Suppres />}
+          {buttonType === "supress-logic" && <Suppres vendor={tableContent} />}
         </Card>
       </Col>
     </Row>

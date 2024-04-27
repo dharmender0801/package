@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   CardBody,
@@ -6,9 +7,19 @@ import {
   FormGroup,
   Input,
   Label,
-  Row
+  Row,
 } from "reactstrap";
-export const Suppres = () => {
+export const Suppres = (props) => {
+  const [vendor, setVendor] = useState(null);
+  const handleVendorChange = (selectedValue) => {
+    const vendors = JSON.parse(selectedValue);
+    setVendor(vendors);
+  };
+
+  const onSubmit=(e)=>{
+    e.preventDefault();
+    console.log(vendor);
+  }
   return (
     <>
       <CardBody>
@@ -22,11 +33,17 @@ export const Suppres = () => {
                   name="vendorName"
                   placeholder="Enter vendor name"
                   type="select"
+                  onChange={(event) => handleVendorChange(event.target.value)}
                 >
-                  <option>Y2NX</option>
+                  <option></option>
+                  {props.vendor.map((item, index) => (
+                    <option key={index} value={JSON.stringify(item)}>
+                      {item.vendorName}
+                    </option>
+                  ))}
                 </Input>
               </Col>
-              <Col xs="6" sm="4">
+              {/* <Col xs="6" sm="4">
                 <Label for="exampleSelect">Daily Capping</Label>
                 <Input
                   id="examplePassword"
@@ -34,13 +51,20 @@ export const Suppres = () => {
                   placeholder="0"
                   type="number"
                 />
-              </Col>
+              </Col> */}
               <Col sm="4">
                 <Label for="exampleSelect">Callback Limit</Label>
                 <Input
                   id="examplePassword"
                   name="password"
                   placeholder="0"
+                  value={vendor ? vendor.callbackLimit : ""}
+                  onChange={(event) =>
+                    setVendor({
+                      ...vendor,
+                      callbackLimit: event.target.value,
+                    })
+                  }
                   type="number"
                 />
               </Col>
@@ -52,23 +76,37 @@ export const Suppres = () => {
           <FormGroup>
             <Row className="mt-3">
               <Col xs="6" sm="4">
-                <Label for="exampleSelect">Sharing Logic</Label>
-                <Input id="exampleSelect" name="select" type="select">
-                  <option>0% Share</option>
-                  <option>10% Share</option>
-                  <option>20% Share</option>
-                  <option>25% Share</option>
-                  <option>33% Share</option>
-                  <option>50% Share</option>
-                  <option>66% Share</option>
-                  <option>75% Share</option>
-                  <option>80% Share</option>
-                  <option>90% Share</option>
-                  <option>100% Share</option>
-                </Input>
+                <Label for="exampleSelect">Share</Label>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="number"
+                  value={vendor ? vendor.cut : ""}
+                  onChange={(event) =>
+                    setVendor({
+                      ...vendor,
+                      cut: event.target.value,
+                    })
+                  }
+                />
+              </Col>
+              <Col xs="6" sm="4">
+                <Label for="exampleSelect">Supress</Label>
+                <Input
+                  id="exampleSelect"
+                  name="select"
+                  type="number"
+                  value={vendor ? vendor.counter : ""}
+                  onChange={(event) =>
+                    setVendor({
+                      ...vendor,
+                      counter: event.target.value,
+                    })
+                  }
+                />
               </Col>
             </Row>
-            <Row className="mt-3">
+            {/* <Row className="mt-3">
               <Col
                 sm="12"
                 md={{
@@ -80,9 +118,9 @@ export const Suppres = () => {
                   Share 1 Suppres :: 1
                 </div>
               </Col>
-            </Row>
+            </Row> */}
           </FormGroup>
-          <Button className="mt-2" color="success">
+          <Button onClick={onSubmit} className="mt-2" color="success">
             Update
           </Button>
         </Form>

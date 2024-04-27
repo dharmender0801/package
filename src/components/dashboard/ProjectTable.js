@@ -1,6 +1,12 @@
 import { CardBody, CardSubtitle, CardTitle, Table } from "reactstrap";
 
 const ProjectTables = ({ tableHeader, tableData }) => {
+  function truncateString(url, maxLength) {
+    if (!url) return "";
+    if (url.length <= maxLength) return url;
+    return url.substring(0, maxLength) + "...";
+  }
+
   return (
     <div>
       <CardBody>
@@ -20,17 +26,15 @@ const ProjectTables = ({ tableHeader, tableData }) => {
           <tbody>
             {tableData.map((tdata, index) => (
               <tr key={index} className="border-top">
-                <td>{tdata.name}</td>
-                <td>{tdata.postbackUrl}</td>
-
+                <td>{tdata.advId}</td>
+                <td>{tdata.vendorName}</td>
+                <td>{truncateString(tdata.postbackUrl, 25)}</td>
+                {/* <td>{truncateString(tdata.lpUrl, 25)}</td> */}
                 <td>{tdata.payout}</td>
-                <td>{tdata.capping}</td>
                 <td>{tdata.callbackLimit}</td>
                 <td>
-                  {tdata.status === "pending" ? (
+                  {tdata.status === "0" ? (
                     <span className="p-2 bg-danger rounded-circle d-inline-block ms-3"></span>
-                  ) : tdata.status === "holt" ? (
-                    <span className="p-2 bg-warning rounded-circle d-inline-block ms-3"></span>
                   ) : (
                     <span className="p-2 bg-success rounded-circle d-inline-block ms-3"></span>
                   )}

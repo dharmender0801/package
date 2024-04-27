@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -12,6 +15,37 @@ import {
   Row,
 } from "reactstrap";
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login();
+  };
+
+  const login = async () => {
+    axios
+      .post("http://localhost:8080/api/auth/signin", formData)
+      .then((response) => {
+        localStorage.setItem("token","Bearer "+response.data.token);
+        navigate("/Dashboard");
+      })
+      .catch((err) => {
+        console.log("Error ", err);
+      });
+  };
+
   return (
     <Container>
       <Col
@@ -26,7 +60,7 @@ const Login = () => {
             Login Page
           </CardTitle>
           <CardBody>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormGroup>
                 <Label for="exampleEmail">Email</Label>
                 <Input
@@ -34,6 +68,8 @@ const Login = () => {
                   name="email"
                   placeholder="EmailId"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </FormGroup>
               <FormGroup>
@@ -43,9 +79,13 @@ const Login = () => {
                   name="password"
                   placeholder="password placeholder"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </FormGroup>
-              <Button className="mt-2">Login</Button>
+              <Button type="submit" className="mt-2">
+                Login
+              </Button>
             </Form>
           </CardBody>
         </Card>
